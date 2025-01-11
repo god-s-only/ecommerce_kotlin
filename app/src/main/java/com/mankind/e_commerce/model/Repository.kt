@@ -19,6 +19,7 @@ class Repository {
     init {
         mAuth = FirebaseAuth.getInstance()
         documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
+        collectionReference = FirebaseFirestore.getInstance().collection("Products")
 
     }
 

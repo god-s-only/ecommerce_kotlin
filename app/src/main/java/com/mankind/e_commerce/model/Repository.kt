@@ -15,12 +15,15 @@ import com.mankind.e_commerce.spinkitloaderstuff.SpinKitLoader
 class Repository {
     private var mAuth:FirebaseAuth
     private lateinit var collectionReference: CollectionReference
-    private  var documentReference:DocumentReference
+    private lateinit var documentReference:DocumentReference
 
     init {
         mAuth = FirebaseAuth.getInstance()
-        documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
-        collectionReference = FirebaseFirestore.getInstance().collection("Products")
+        if(mAuth.currentUser != null){
+            documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
+            collectionReference = FirebaseFirestore.getInstance().collection("Products")
+        }
+
 
     }
 
@@ -42,19 +45,11 @@ class Repository {
                         context.startActivity(Intent(context, SignInActivity::class.java))
                     }
                 }?.addOnFailureListener {
-                    spinKitLoader.dismissDialog()
-                    Toast.makeText(
-                        context,
-                        "${it.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
+            }else{
+                Toast.makeText(context, "${it.exception?.message}", Toast.LENGTH_LONG).show()
             }
-        }.addOnFailureListener {
-            spinKitLoader.dismissDialog()
-            Toast.makeText(context,
-                "${it.message}",
-                Toast.LENGTH_LONG).show()
         }
     }
     fun signInUser(email:String, password:String, context: Context){
@@ -108,12 +103,11 @@ class Repository {
     fun getAllProducts(): MutableLiveData<List<ProductModel>>{
         val liveData = ArrayList<ProductModel>()
         val mutableLiveData = MutableLiveData<List<ProductModel>>()
-        collectionReference.get().addOnSuccessListener {
-            for(snapshot in it){
-                val productModel = snapshot.toObject(ProductModel::class.java)
-                liveData.add(productModel)
-            }
-            mutableLiveData.postValue(liveData)
+        collectionReference.get().addOnSuccessListener {snapshot ->
+            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
+            mutableLiveData.postValue(productModel)
+        }.addOnFailureListener {
+            mutableLiveData.postValue(emptyList())
         }
         return mutableLiveData
     }

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.mankind.e_commerce" />
+                  <option name="mobileSdkAppId" value="1:244719201434:android:58f9fd8bf4f8ed5c680323" />
+                  <option name="projectId" value="francisco-media-app" />
+                  <option name="projectNumber" value="244719201434" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

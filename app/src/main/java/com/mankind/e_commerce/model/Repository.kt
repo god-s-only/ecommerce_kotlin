@@ -3,6 +3,7 @@ package com.mankind.e_commerce.model
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
@@ -103,4 +104,22 @@ class Repository {
     fun addUserInformation(){
         
     }
+
+    fun getAllProducts(): MutableLiveData<List<ProductModel>>{
+        val liveData = ArrayList<ProductModel>()
+        val mutableLiveData = MutableLiveData<List<ProductModel>>()
+        collectionReference.get().addOnSuccessListener {
+            for(snapshot in it){
+                val productModel = snapshot.toObject(ProductModel::class.java)
+                liveData.add(productModel)
+            }
+            mutableLiveData.postValue(liveData)
+        }
+        return mutableLiveData
+    }
+
+    fun addProducts(){
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.mankind.e_commerce.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -36,6 +37,8 @@ class SignInActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Please fill in the above fields", Toast.LENGTH_LONG).show()
             }
         }
-
+        binding.redirectSignUp.setOnClickListener {
+            startActivity(Intent(this@SignInActivity, SignUpActivity::class.java))
+        }
     }
 }

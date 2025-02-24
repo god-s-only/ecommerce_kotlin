@@ -15,6 +15,8 @@ class SpinKitLoader(var context:Context) {
         null
     )
     init {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
         dialog.setContentView(view)
     }
 

@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.mankind.e_commerce"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.mankind.e_commerce"

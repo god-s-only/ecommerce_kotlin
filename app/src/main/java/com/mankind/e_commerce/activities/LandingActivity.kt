@@ -22,6 +22,8 @@ class LandingActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
         }, 4000)
+        supportActionBar?.hide()
     }
 }

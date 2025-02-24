@@ -1,8 +1,9 @@
 package com.mankind.e_commerce.model
 
-data class ProductModel(var firstName:String,
-                        var lastName:String,
-                        var age:Int,
-                        var ageDay:Int,
-                        var ageMonth:Int,
-                        var ageYear:Int)
+import android.net.Uri
+
+data class ProductModel(var productName:String,
+                        var productBio:String,
+                        var productPrice:Int,
+                        var productUri:Uri,
+                        var productImageUrl:String)

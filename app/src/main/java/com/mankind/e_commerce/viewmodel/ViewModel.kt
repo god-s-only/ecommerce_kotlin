@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.mankind.e_commerce.model.Repository
 
 class ViewModel : ViewModel() {
-    lateinit var repository:Repository
+    private var repository:Repository
 
     init {
         repository = Repository()

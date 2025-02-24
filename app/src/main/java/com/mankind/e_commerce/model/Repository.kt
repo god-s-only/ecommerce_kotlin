@@ -14,7 +14,7 @@ import com.mankind.e_commerce.spinkitloaderstuff.SpinKitLoader
 
 class Repository {
     private var mAuth:FirebaseAuth
-    private lateinit var collectionReference: CollectionReference
+    private lateinit var collectionReference:CollectionReference
     private lateinit var documentReference:DocumentReference
 
     init {
@@ -29,11 +29,13 @@ class Repository {
 
     fun createNewUser(email:String,
                       password:String,
-                      context:Context){
+                      context:Context,
+                      name: String){
         var spinKitLoader = SpinKitLoader(context)
         spinKitLoader.showDialog()
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful){
+                addUserInformation(name, context)
                 mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
                     if(it.isSuccessful){
                         spinKitLoader.dismissDialog()
@@ -96,12 +98,17 @@ class Repository {
     fun signOut(){
         mAuth.signOut()
     }
-    fun addUserInformation(){
-        
+    fun addUserInformation(name: String, context: Context){
+        if(documentReference != null){
+            documentReference.set(UserData(name = name)).addOnSuccessListener {
+                Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     fun getAllProducts(): MutableLiveData<List<ProductModel>>{
-        val liveData = ArrayList<ProductModel>()
         val mutableLiveData = MutableLiveData<List<ProductModel>>()
         collectionReference.get().addOnSuccessListener {snapshot ->
             val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }

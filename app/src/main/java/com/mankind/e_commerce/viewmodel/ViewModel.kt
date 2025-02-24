@@ -14,9 +14,10 @@ class ViewModel : ViewModel() {
     fun createNewUser(
         email:String,
         password:String,
-        context:Context
+        context:Context,
+        name: String
     ){
-        repository.createNewUser(email, password, context)
+        repository.createNewUser(email, password, context, name)
     }
 
     fun signInUser(email:String,

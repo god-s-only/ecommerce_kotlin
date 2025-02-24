@@ -16,7 +16,6 @@ class SpinKitLoader(var context:Context) {
     )
     init {
         dialog.setContentView(view)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     }
 
     fun showDialog(){

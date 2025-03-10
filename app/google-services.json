@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "244719201434",
+    "project_id": "francisco-media-app",
+    "storage_bucket": "francisco-media-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244719201434:android:58f9fd8bf4f8ed5c680323",
+        "android_client_info": {
+          "package_name": "com.mankind.e_commerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxBHOZ02e46iae3LCYA2OylenAKwEesX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244719201434:android:bb84e172cc907d63680323",
+        "android_client_info": {
+          "package_name": "com.ogbodo.francisapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxBHOZ02e46iae3LCYA2OylenAKwEesX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

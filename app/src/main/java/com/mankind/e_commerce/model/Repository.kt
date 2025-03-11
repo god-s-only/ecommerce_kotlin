@@ -23,8 +23,6 @@ class Repository {
             documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
             collectionReference = FirebaseFirestore.getInstance().collection("Products")
         }
-
-
     }
 
     fun createNewUser(email:String,

@@ -192,7 +192,6 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- Sign up button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSignUp"
                 android:layout_width="0dp"

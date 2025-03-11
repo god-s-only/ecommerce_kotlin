@@ -30,12 +30,13 @@ class Repository {
     fun createNewUser(email:String,
                       password:String,
                       context:Context,
-                      name: String){
+                      name: String,
+                      phoneNumber: String){
         var spinKitLoader = SpinKitLoader(context)
         spinKitLoader.showDialog()
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful){
-                addUserInformation(name, context)
+                addUserInformation(name, context, phoneNumber)
                 mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
                     if(it.isSuccessful){
                         spinKitLoader.dismissDialog()
@@ -98,9 +99,9 @@ class Repository {
     fun signOut(){
         mAuth.signOut()
     }
-    fun addUserInformation(name: String, context: Context){
+    fun addUserInformation(name: String, context: Context, phoneNumber: String){
         if(documentReference != null){
-            documentReference.set(UserData(name = name)).addOnSuccessListener {
+            documentReference.set(UserData(name = name, phoneNumber = phoneNumber)).addOnSuccessListener {
                 Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
             }.addOnFailureListener {
                 Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()

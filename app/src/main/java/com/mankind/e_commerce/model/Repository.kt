@@ -25,6 +25,9 @@ class Repository {
         if(mAuth.currentUser != null){
             documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
             shoesCollectionReference = FirebaseFirestore.getInstance().collection("Shoes")
+            pantsCollectionReference = FirebaseFirestore.getInstance().collection("Pants")
+            bagsCollectionReference = FirebaseFirestore.getInstance().collection("Bags")
+            shirtsCollectionReference = FirebaseFirestore.getInstance().collection("Shirts")
         }
     }
 

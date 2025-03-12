@@ -26,9 +26,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Spinner
+                android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/white"/>
 
         </LinearLayout>
 
@@ -85,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="Provide the best\nfood for you"
+            android:text="Provide the best\nfor you"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
             android:textStyle="bold"

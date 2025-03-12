@@ -98,8 +98,5 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
     implementation("de.hdodenhof:circleimageview:3.1.0")
-
-
-
-
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

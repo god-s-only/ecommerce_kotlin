@@ -15,6 +15,7 @@ import com.mankind.e_commerce.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
     private val locations = arrayOf("USA", "Germany", "Nigeria")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

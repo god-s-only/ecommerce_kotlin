@@ -10,12 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mankind.e_commerce.R
+import com.mankind.e_commerce.adapters.ItemsAdapter
 import com.mankind.e_commerce.databinding.FragmentHomeBinding
+import com.mankind.e_commerce.viewmodel.ViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding:FragmentHomeBinding
     private val locations = arrayOf("USA", "Germany", "Nigeria")
-
+    private lateinit var viewModel:ViewModel
+    private lateinit var itemsAdapter: ItemsAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,8 +28,10 @@ class HomeFragment : Fragment() {
             R.layout.fragment_home,
             container,
             false)
+        viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
         binding.spinner.adapter = arrayAdapter
+        viewModel.
         return binding.root
     }
 }

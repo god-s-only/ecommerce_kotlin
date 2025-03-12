@@ -14,14 +14,17 @@ import com.mankind.e_commerce.spinkitloaderstuff.SpinKitLoader
 
 class Repository {
     private var mAuth:FirebaseAuth
-    private lateinit var collectionReference:CollectionReference
+    private lateinit var shoesCollectionReference:CollectionReference
+    private lateinit var shirtsCollectionReference:CollectionReference
+    private lateinit var pantsCollectionReference:CollectionReference
+    private lateinit var bagsCollectionReference:CollectionReference
     private lateinit var documentReference:DocumentReference
 
     init {
         mAuth = FirebaseAuth.getInstance()
         if(mAuth.currentUser != null){
             documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
-            collectionReference = FirebaseFirestore.getInstance().collection("Products")
+            shoesCollectionReference = FirebaseFirestore.getInstance().collection("Shoes")
         }
     }
 
@@ -107,9 +110,42 @@ class Repository {
         }
     }
 
-    fun getAllProducts(): MutableLiveData<List<ProductModel>>{
+    fun getAllShoesProducts(): MutableLiveData<List<ProductModel>>{
         val mutableLiveData = MutableLiveData<List<ProductModel>>()
-        collectionReference.get().addOnSuccessListener {snapshot ->
+        shoesCollectionReference.get().addOnSuccessListener {snapshot ->
+            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
+            mutableLiveData.postValue(productModel)
+        }.addOnFailureListener {
+            mutableLiveData.postValue(emptyList())
+        }
+        return mutableLiveData
+    }
+
+    fun getAllShirtsProducts(): MutableLiveData<List<ProductModel>>{
+        val mutableLiveData = MutableLiveData<List<ProductModel>>()
+        shirtsCollectionReference.get().addOnSuccessListener {snapshot ->
+            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
+            mutableLiveData.postValue(productModel)
+        }.addOnFailureListener {
+            mutableLiveData.postValue(emptyList())
+        }
+        return mutableLiveData
+    }
+
+    fun getAllPantsProducts(): MutableLiveData<List<ProductModel>>{
+        val mutableLiveData = MutableLiveData<List<ProductModel>>()
+        pantsCollectionReference.get().addOnSuccessListener {snapshot ->
+            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
+            mutableLiveData.postValue(productModel)
+        }.addOnFailureListener {
+            mutableLiveData.postValue(emptyList())
+        }
+        return mutableLiveData
+    }
+
+    fun getAllBagsProducts(): MutableLiveData<List<ProductModel>>{
+        val mutableLiveData = MutableLiveData<List<ProductModel>>()
+        bagsCollectionReference.get().addOnSuccessListener {snapshot ->
             val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
             mutableLiveData.postValue(productModel)
         }.addOnFailureListener {

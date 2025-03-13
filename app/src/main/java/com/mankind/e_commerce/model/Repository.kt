@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import com.mankind.e_commerce.MainActivity
 import com.mankind.e_commerce.activities.ProfileActivity
 import com.mankind.e_commerce.activities.SignInActivity
@@ -191,5 +192,16 @@ class Repository {
             }
         }
     }
-
+    fun getAllCartProducts(): MutableLiveData<List<CartProductModel>>{
+        val mutableLiveData = MutableLiveData<List<CartProductModel>>()
+        val userId = mAuth.currentUser?.uid
+        if(userId != null){
+            FirebaseFirestore.getInstance().collection("Cart Products").document(userId).collection("Products").get().addOnSuccessListener { snapshot ->
+                mutableLiveData.postValue(
+                    snapshot.mapNotNull { it.toObject(CartProductModel::class.java) }
+                )
+            }
+        }
+        return mutableLiveData
+    }
 }

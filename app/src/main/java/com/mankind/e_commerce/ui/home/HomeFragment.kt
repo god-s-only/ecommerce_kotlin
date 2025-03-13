@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mankind.e_commerce.R
 import com.mankind.e_commerce.adapters.ItemsAdapter
 import com.mankind.e_commerce.databinding.FragmentHomeBinding
@@ -31,7 +33,13 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
         binding.spinner.adapter = arrayAdapter
-        viewModel.
+        binding.progressBar.visibility = View.GONE
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        viewModel.getAllShoesProducts(binding.progressBar).observe(requireActivity()){
+            itemsAdapter = ItemsAdapter(it, context)
+            itemsAdapter.notifyDataSetChanged()
+        }
+        binding.recyclerView.adapter = itemsAdapter
         return binding.root
     }
 }

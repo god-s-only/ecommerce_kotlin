@@ -25,7 +25,7 @@
 
         <!-- Favorite Button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fav_button"
+            android:id="@+id/favorite_button"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"

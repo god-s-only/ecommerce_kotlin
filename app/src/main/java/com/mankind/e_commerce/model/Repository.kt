@@ -2,6 +2,8 @@ package com.mankind.e_commerce.model
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -113,12 +115,17 @@ class Repository {
         }
     }
 
-    fun getAllShoesProducts(): MutableLiveData<List<ProductModel>>{
+    fun getAllShoesProducts(progressBar: ProgressBar): MutableLiveData<List<ProductModel>>{
         val mutableLiveData = MutableLiveData<List<ProductModel>>()
+        progressBar.visibility = View.VISIBLE
         shoesCollectionReference.get().addOnSuccessListener {snapshot ->
-            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
+            progressBar.visibility = View.GONE
+            val productModel = snapshot.mapNotNull {
+                it.toObject(ProductModel::class.java)
+            }
             mutableLiveData.postValue(productModel)
         }.addOnFailureListener {
+            progressBar.visibility = View.GONE
             mutableLiveData.postValue(emptyList())
         }
         return mutableLiveData

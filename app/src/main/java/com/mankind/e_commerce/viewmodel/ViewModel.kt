@@ -1,7 +1,10 @@
 package com.mankind.e_commerce.viewmodel
 
 import android.content.Context
+import android.widget.ProgressBar
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.mankind.e_commerce.model.ProductModel
 import com.mankind.e_commerce.model.Repository
 
 class ViewModel : ViewModel() {
@@ -29,5 +32,8 @@ class ViewModel : ViewModel() {
 
     fun signOut(){
         repository.signOut()
+    }
+    fun getAllShoesProducts(progressBar: ProgressBar): LiveData<List<ProductModel>>{
+        return repository.getAllShoesProducts(progressBar)
     }
 }

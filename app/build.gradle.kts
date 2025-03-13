@@ -52,14 +52,12 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.rules)
     implementation(libs.androidx.activity)
+    implementation(libs.androidx.preference)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-
-
-
 
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
@@ -98,5 +96,6 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
     implementation("de.hdodenhof:circleimageview:3.1.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //SpinKit View
 }

@@ -7,4 +7,5 @@ data class ProductModel(var productName:String,
                         var productPrice:String,
                         var productUri:Uri,
                         var ratings: String,
+                        var productId: String,
                         var productImageUrl:String)

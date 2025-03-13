@@ -13,9 +13,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.mankind.e_commerce.R;
 import com.mankind.e_commerce.databinding.ActivityDetailsBinding;
 import com.mankind.e_commerce.model.CartProductModel;
+import com.mankind.e_commerce.model.ProductModel;
 import com.mankind.e_commerce.viewmodel.ViewModel;
 import com.mankind.e_commerce.viewmodel.livedatatext.QuantityText;
 
@@ -35,6 +37,21 @@ public class DetailsActivity extends AppCompatActivity {
         });
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
+
+        viewModel.getSelectedProduct(getIntent().getStringExtra("productId"), getIntent().getStringExtra("collectionName"), DetailsActivity.this).observe(this, new Observer<ProductModel>() {
+            @Override
+            public void onChanged(ProductModel productModel) {
+                Glide.with(getApplicationContext())
+                        .load(productModel.getProductImageUrl())
+                        .centerCrop()
+                        .into(binding.productImage);
+                binding.productName.setText(productModel.getProductName());
+                binding.productBio.setText(productModel.getProductBio());
+                binding.productPrice.setText(productModel.getProductPrice());
+                binding.productRatings.setText(productModel.getRatings());
+            }
+        });
+
         binding.addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

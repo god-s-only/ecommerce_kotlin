@@ -43,4 +43,7 @@ class ViewModel : ViewModel() {
     fun getAllCartProducts(): LiveData<List<CartProductModel>>{
         return repository.getAllCartProducts()
     }
+    fun getSelectedProduct(productId: String, collectionName: String, context: Context): LiveData<ProductModel>{
+        return repository.getSelectedProduct(productId, collectionName, context)
+    }
 }

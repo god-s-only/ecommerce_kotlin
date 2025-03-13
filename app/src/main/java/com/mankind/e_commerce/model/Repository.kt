@@ -200,7 +200,16 @@ class Repository {
                 mutableLiveData.postValue(
                     snapshot.mapNotNull { it.toObject(CartProductModel::class.java) }
                 )
-            }
+            }.addOnFailureListener { mutableLiveData.postValue(emptyList()) }
+        }
+        return mutableLiveData
+    }
+    fun getSelectedProduct(productId: String, collectionName: String, context: Context): MutableLiveData<ProductModel>{
+        val mutableLiveData = MutableLiveData<ProductModel>()
+        FirebaseFirestore.getInstance().collection(collectionName).document(productId).get().addOnSuccessListener {
+            mutableLiveData.postValue(it.toObject(ProductModel::class.java))
+        }.addOnFailureListener {
+            Toast.makeText(context, "Error fetching product", Toast.LENGTH_LONG).show()
         }
         return mutableLiveData
     }

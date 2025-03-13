@@ -26,7 +26,6 @@ class Repository {
     init {
         mAuth = FirebaseAuth.getInstance()
         if(mAuth.currentUser != null){
-            documentReference = FirebaseFirestore.getInstance().collection("Users Data").document(mAuth.currentUser!!.uid)
             shoesCollectionReference = FirebaseFirestore.getInstance().collection("Shoes")
             pantsCollectionReference = FirebaseFirestore.getInstance().collection("Pants")
             bagsCollectionReference = FirebaseFirestore.getInstance().collection("Bags")
@@ -47,23 +46,32 @@ class Repository {
             if (task.isSuccessful) {
                 val userId = mAuth.currentUser?.uid
                 if (userId != null) {
-                    documentReference = FirebaseFirestore.getInstance()
-                        .collection("Users Data")
+                    val documentReference = FirebaseFirestore.getInstance()
+                        .collection("Users")
                         .document(userId)
-                    addUserInformation(name, context, phoneNumber)
-                    mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            spinKitLoader.dismissDialog()
-                            Toast.makeText(
-                                context,
-                                "Please check your email for verification link",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            context.startActivity(Intent(context, SignInActivity::class.java))
+                    val userData = UserData(name, phoneNumber)
+                    documentReference.set(userData)
+                        .addOnSuccessListener {
+                            mAuth.currentUser?.sendEmailVerification()
+                                ?.addOnCompleteListener { emailTask ->
+                                    spinKitLoader.dismissDialog()
+                                    if (emailTask.isSuccessful) {
+                                        Toast.makeText(
+                                            context,
+                                            "Please check your email for verification link",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        context.startActivity(Intent(context, SignInActivity::class.java))
+                                    }
+                                }
+                                ?.addOnFailureListener {
+                                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                                }
                         }
-                    }?.addOnFailureListener {
-                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                    }
+                        .addOnFailureListener {
+                            spinKitLoader.dismissDialog()
+                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                        }
                 }
             } else {
                 spinKitLoader.dismissDialog()
@@ -71,6 +79,7 @@ class Repository {
             }
         }
     }
+
     fun signInUser(email:String, password:String, context: Context){
         var spinKitLoader = SpinKitLoader(context)
         spinKitLoader.showDialog()
@@ -114,15 +123,6 @@ class Repository {
     }
     fun signOut(){
         mAuth.signOut()
-    }
-    fun addUserInformation(name: String, context: Context, phoneNumber: String){
-        if(documentReference != null){
-            documentReference.set(UserData(name = name, phoneNumber = phoneNumber)).addOnSuccessListener {
-                Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
-            }.addOnFailureListener {
-                Toast.makeText(context, "${it.message}", Toast.LENGTH_LONG).show()
-            }
-        }
     }
 
     fun getAllShoesProducts(progressBar: ProgressBar): MutableLiveData<List<ProductModel>>{

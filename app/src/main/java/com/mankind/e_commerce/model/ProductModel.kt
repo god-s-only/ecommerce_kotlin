@@ -8,4 +8,5 @@ data class ProductModel(var productName:String,
                         var productUri:Uri,
                         var ratings: String,
                         var productId: String,
+                        var productCategory: String,
                         var productImageUrl:String)

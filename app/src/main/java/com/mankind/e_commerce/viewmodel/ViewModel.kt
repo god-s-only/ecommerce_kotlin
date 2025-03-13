@@ -40,4 +40,7 @@ class ViewModel : ViewModel() {
     fun addProductsToCart(cartProductModel: CartProductModel, context: Context){
         repository.addProductsToCart(cartProductModel, context)
     }
+    fun getAllCartProducts(): LiveData<List<CartProductModel>>{
+        return repository.getAllCartProducts()
+    }
 }

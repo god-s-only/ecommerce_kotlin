@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="#F0F0F0">
 
-    <!-- Header Section with Location, Search and Notification -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
@@ -147,7 +146,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_burger" />
+                    android:src="@drawable/shoes" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -169,7 +168,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_burger" />
+                    android:src="@drawable/shirts" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -191,7 +190,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_burger" />
+                    android:src="@drawable/pants" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,7 +211,7 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_burger" />
+                    android:src="@drawable/bags" />
 
                 <TextView
                     android:layout_width="wrap_content"

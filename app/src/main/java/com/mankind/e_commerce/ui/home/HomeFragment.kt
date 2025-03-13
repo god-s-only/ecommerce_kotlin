@@ -26,20 +26,18 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_home,
-            container,
-            false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, locations)
         binding.spinner.adapter = arrayAdapter
         binding.progressBar.visibility = View.GONE
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        viewModel.getAllShoesProducts(binding.progressBar).observe(requireActivity()){
-            itemsAdapter = ItemsAdapter(it, context)
+        viewModel.getAllShoesProducts(binding.progressBar).observe(viewLifecycleOwner){
+            itemsAdapter = ItemsAdapter(it, requireContext())
+            binding.recyclerView.adapter = itemsAdapter
             itemsAdapter.notifyDataSetChanged()
         }
-        binding.recyclerView.adapter = itemsAdapter
+
         return binding.root
     }
 }

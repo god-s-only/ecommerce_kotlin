@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mankind.e_commerce.MainActivity
 import com.mankind.e_commerce.activities.ProfileActivity
 import com.mankind.e_commerce.activities.SignInActivity
 import com.mankind.e_commerce.spinkitloaderstuff.SpinKitLoader
@@ -33,31 +34,40 @@ class Repository {
         }
     }
 
-    fun createNewUser(email:String,
-                      password:String,
-                      context:Context,
-                      name: String,
-                      phoneNumber: String){
-        var spinKitLoader = SpinKitLoader(context)
+    fun createNewUser(
+        email: String,
+        password: String,
+        context: Context,
+        name: String,
+        phoneNumber: String
+    ) {
+        val spinKitLoader = SpinKitLoader(context)
         spinKitLoader.showDialog()
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-            if(it.isSuccessful){
-                addUserInformation(name, context, phoneNumber)
-                mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
-                    if(it.isSuccessful){
-                        spinKitLoader.dismissDialog()
-                        Toast.makeText(
-                            context,
-                            "Please check your email for verification link",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        context.startActivity(Intent(context, SignInActivity::class.java))
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val userId = mAuth.currentUser?.uid
+                if (userId != null) {
+                    documentReference = FirebaseFirestore.getInstance()
+                        .collection("Users Data")
+                        .document(userId)
+                    addUserInformation(name, context, phoneNumber)
+                    mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            spinKitLoader.dismissDialog()
+                            Toast.makeText(
+                                context,
+                                "Please check your email for verification link",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            context.startActivity(Intent(context, SignInActivity::class.java))
+                        }
+                    }?.addOnFailureListener {
+                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                     }
-                }?.addOnFailureListener {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
-            }else{
-                Toast.makeText(context, "${it.exception?.message}", Toast.LENGTH_LONG).show()
+            } else {
+                spinKitLoader.dismissDialog()
+                Toast.makeText(context, "${task.exception?.message}", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -72,7 +82,7 @@ class Repository {
                         "Login successful",
                         Toast.LENGTH_LONG
                         ).show()
-                    context.startActivity(Intent(context, ProfileActivity::class.java))
+                    context.startActivity(Intent(context, MainActivity::class.java))
                 }else{
                     mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
                         spinKitLoader.dismissDialog()

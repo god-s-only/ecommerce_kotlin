@@ -30,14 +30,14 @@ class SignUpActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
         binding.btnSignUp.setOnClickListener {
-            val email = binding.etName.text.toString().trim()
-            val name = binding.etEmail.text.toString().trim()
+            val email = binding.etEmail.text.toString().trim()
+            val name = binding.etName.text.toString().trim()
             val phoneNumber = binding.etPhone.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
             val cPassword = binding.etConfirmPassword.text.toString().trim()
             if(email.isNotEmpty() && name.isNotEmpty() && phoneNumber.isNotEmpty() && password.isNotEmpty() && cPassword.isNotEmpty()){
                 if(cPassword.equals(password)){
-                    viewModel.createNewUser(email, password, applicationContext, name)
+                    viewModel.createNewUser(email, password, this@SignUpActivity, name, phoneNumber)
                 }else{
                     Toast.makeText(applicationContext, "Password does not match", Toast.LENGTH_LONG).show()
                 }

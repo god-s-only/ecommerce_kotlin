@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.mankind.e_commerce.ui.dashboard.SearchFragment"
+        android:name="com.mankind.e_commerce.ui.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 

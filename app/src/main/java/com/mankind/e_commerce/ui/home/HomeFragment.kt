@@ -37,7 +37,6 @@ class HomeFragment : Fragment() {
             binding.recyclerView.adapter = itemsAdapter
             itemsAdapter.notifyDataSetChanged()
         }
-
         return binding.root
     }
 }

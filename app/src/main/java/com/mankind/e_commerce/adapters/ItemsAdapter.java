@@ -53,6 +53,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             public void onClick(View v) {
                  Intent intent = new Intent(context, DetailsActivity.class);
                  intent.putExtra("productId", productModelArrayList.get(holder.getAdapterPosition()).getProductId());
+                 intent.putExtra("collectionName", productModelArrayList.get(holder.getAdapterPosition()).getProductCategory());
+                 intent.putExtra("imageUrl", productModelArrayList.get(holder.getAdapterPosition()).getProductImageUrl());
                  context.startActivity(intent);
             }
         });

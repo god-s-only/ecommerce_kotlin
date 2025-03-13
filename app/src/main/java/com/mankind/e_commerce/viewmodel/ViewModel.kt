@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.mankind.e_commerce.model.CartProductModel
 import com.mankind.e_commerce.model.ProductModel
 import com.mankind.e_commerce.model.Repository
 
@@ -35,5 +36,8 @@ class ViewModel : ViewModel() {
     }
     fun getAllShoesProducts(progressBar: ProgressBar): LiveData<List<ProductModel>>{
         return repository.getAllShoesProducts(progressBar)
+    }
+    fun addProductsToCart(cartProductModel: CartProductModel, context: Context){
+        repository.addProductsToCart(cartProductModel, context)
     }
 }

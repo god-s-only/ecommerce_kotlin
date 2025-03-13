@@ -37,7 +37,11 @@ class SignUpActivity : AppCompatActivity() {
             val cPassword = binding.etConfirmPassword.text.toString().trim()
             if(email.isNotEmpty() && name.isNotEmpty() && phoneNumber.isNotEmpty() && password.isNotEmpty() && cPassword.isNotEmpty()){
                 if(cPassword.equals(password)){
-                    viewModel.createNewUser(email, password, this@SignUpActivity, name, phoneNumber)
+                    if(binding.terms.isChecked){
+                        viewModel.createNewUser(email, password, this@SignUpActivity, name, phoneNumber)
+                    }else{
+                        Toast.makeText(applicationContext, "You do not accept our terms and conditions", Toast.LENGTH_LONG).show()
+                    }
                 }else{
                     Toast.makeText(applicationContext, "Password does not match", Toast.LENGTH_LONG).show()
                 }

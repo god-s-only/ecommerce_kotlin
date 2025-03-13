@@ -21,7 +21,6 @@ class Repository {
     private lateinit var shirtsCollectionReference:CollectionReference
     private lateinit var pantsCollectionReference:CollectionReference
     private lateinit var bagsCollectionReference:CollectionReference
-    private lateinit var documentReference:DocumentReference
 
     init {
         mAuth = FirebaseAuth.getInstance()
@@ -176,6 +175,21 @@ class Repository {
 
     fun addProducts(){
 
+    }
+
+    fun addProductsToCart(cartProductModel: CartProductModel, context: Context){
+        val spinKitLoader = SpinKitLoader(context)
+        spinKitLoader.showDialog()
+        val userId = mAuth.currentUser?.uid
+        if(userId != null){
+            FirebaseFirestore.getInstance().collection("Cart Products").document(userId).collection("Products").document(cartProductModel.productId).set(cartProductModel).addOnSuccessListener {
+                spinKitLoader.dismissDialog()
+                Toast.makeText(context, "Product added to cart successfully", Toast.LENGTH_LONG).show()
+            }.addOnFailureListener {
+                spinKitLoader.dismissDialog()
+                Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
 }

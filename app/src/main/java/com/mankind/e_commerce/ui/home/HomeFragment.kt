@@ -45,10 +45,14 @@ class HomeFragment : Fragment() {
         binding.newButton.setOnClickListener {
             bottomSheetDialog = BottomSheetDialog(requireContext())
             val view = LayoutInflater.from(requireContext()).inflate(R.layout.bottom_fragment, null)
+            view.setBackgroundResource(android.R.color.transparent)
             bottomSheetDialog.setContentView(view)
             bottomSheetDialog.show()
             view.findViewById<MaterialButton>(R.id.proceedBtn).setOnClickListener {
                 startActivity(Intent(requireContext(), NewProductActivity::class.java))
+                bottomSheetDialog.dismiss()
+            }
+            view.findViewById<MaterialButton>(R.id.cancelBtn).setOnClickListener {
                 bottomSheetDialog.dismiss()
             }
         }

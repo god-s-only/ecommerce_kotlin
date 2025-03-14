@@ -4,49 +4,81 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:cardElevation="2dp"
-    app:cardCornerRadius="30dp"
-    android:background="@drawable/background_fragment"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintStart_toStartOf="parent">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Product Upload"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/validation_sent" />
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/validation_sent"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="Product upload illustration" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="You are about to create and upload \na new product to the .kt ecommerce"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:text="You are about to create and upload a new product to the .kt ecommerce platform."
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancelBtn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="0dp"
+                android:textColor="#FF9800"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Cancel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/proceedBtn"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                app:cornerRadius="8dp"
                 android:backgroundTint="#FF9800"
-                android:text="Proceed"/>
+                android:text="Proceed" />
         </LinearLayout>
-</LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

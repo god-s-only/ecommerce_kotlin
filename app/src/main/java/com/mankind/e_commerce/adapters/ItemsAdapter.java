@@ -55,6 +55,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                  intent.putExtra("productId", productModelArrayList.get(holder.getAdapterPosition()).getProductId());
                  intent.putExtra("collectionName", productModelArrayList.get(holder.getAdapterPosition()).getProductCategory());
                  intent.putExtra("imageUrl", productModelArrayList.get(holder.getAdapterPosition()).getProductImageUrl());
+                 intent.putExtra("merchantId", productModelArrayList.get(holder.getAdapterPosition()).getMerchantId());
                  context.startActivity(intent);
             }
         });

@@ -34,8 +34,8 @@ class ViewModel : ViewModel() {
     fun signOut(){
         repository.signOut()
     }
-    fun getAllShoesProducts(progressBar: ProgressBar): LiveData<List<ProductModel>>{
-        return repository.getAllShoesProducts(progressBar)
+    fun getAllProducts(progressBar: ProgressBar, collectionName: String): LiveData<List<ProductModel>>{
+        return repository.getAllProducts(progressBar, collectionName)
     }
     fun addProductsToCart(cartProductModel: CartProductModel, context: Context){
         repository.addProductsToCart(cartProductModel, context)
@@ -45,5 +45,8 @@ class ViewModel : ViewModel() {
     }
     fun getSelectedProduct(productId: String, collectionName: String, context: Context): LiveData<ProductModel>{
         return repository.getSelectedProduct(productId, collectionName, context)
+    }
+    fun addProducts(productModel: ProductModel, categoryName: String, documentId: String, context: Context){
+        repository.addProducts(productModel, categoryName, documentId, context)
     }
 }

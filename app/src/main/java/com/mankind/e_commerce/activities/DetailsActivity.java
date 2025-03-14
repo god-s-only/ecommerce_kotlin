@@ -68,7 +68,7 @@ public class DetailsActivity extends AppCompatActivity {
                     @Override
                     public void onChanged(Integer integer) {
                         String productQuantity = String.valueOf(integer);
-                        CartProductModel cartProductModel = new CartProductModel(productName, productBio, productPrice, ratings, productId, productCategory, productImageUrl, productQuantity);
+                        CartProductModel cartProductModel = new CartProductModel(productName, productBio, productPrice, ratings, productId, productCategory, productImageUrl, productQuantity, getIntent().getStringExtra("merchantId"));
                         viewModel.addProductsToCart(cartProductModel, DetailsActivity.this);
                     }
                 });

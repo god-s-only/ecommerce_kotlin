@@ -18,19 +18,9 @@ import com.mankind.e_commerce.spinkitloaderstuff.SpinKitLoader
 
 class Repository {
     private var mAuth:FirebaseAuth
-    private lateinit var shoesCollectionReference:CollectionReference
-    private lateinit var shirtsCollectionReference:CollectionReference
-    private lateinit var pantsCollectionReference:CollectionReference
-    private lateinit var bagsCollectionReference:CollectionReference
 
     init {
         mAuth = FirebaseAuth.getInstance()
-        if(mAuth.currentUser != null){
-            shoesCollectionReference = FirebaseFirestore.getInstance().collection("Shoes")
-            pantsCollectionReference = FirebaseFirestore.getInstance().collection("Pants")
-            bagsCollectionReference = FirebaseFirestore.getInstance().collection("Bags")
-            shirtsCollectionReference = FirebaseFirestore.getInstance().collection("Shirts")
-        }
     }
 
     fun createNewUser(
@@ -125,10 +115,10 @@ class Repository {
         mAuth.signOut()
     }
 
-    fun getAllShoesProducts(progressBar: ProgressBar): MutableLiveData<List<ProductModel>>{
+    fun getAllProducts(progressBar: ProgressBar, collectionName: String): MutableLiveData<List<ProductModel>>{
         val mutableLiveData = MutableLiveData<List<ProductModel>>()
         progressBar.visibility = View.VISIBLE
-        shoesCollectionReference.get().addOnSuccessListener {snapshot ->
+        FirebaseFirestore.getInstance().collection(collectionName).get().addOnSuccessListener {snapshot ->
             progressBar.visibility = View.GONE
             val productModel = snapshot.mapNotNull {
                 it.toObject(ProductModel::class.java)
@@ -140,42 +130,12 @@ class Repository {
         }
         return mutableLiveData
     }
-
-    fun getAllShirtsProducts(): MutableLiveData<List<ProductModel>>{
-        val mutableLiveData = MutableLiveData<List<ProductModel>>()
-        shirtsCollectionReference.get().addOnSuccessListener {snapshot ->
-            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
-            mutableLiveData.postValue(productModel)
+    fun addProducts(productModel: ProductModel, categoryName: String, documentId: String, context: Context){
+        FirebaseFirestore.getInstance().collection(categoryName).document(documentId).set(productModel).addOnSuccessListener {
+            Toast.makeText(context, "Product added successfully", Toast.LENGTH_LONG).show()
         }.addOnFailureListener {
-            mutableLiveData.postValue(emptyList())
+            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
         }
-        return mutableLiveData
-    }
-
-    fun getAllPantsProducts(): MutableLiveData<List<ProductModel>>{
-        val mutableLiveData = MutableLiveData<List<ProductModel>>()
-        pantsCollectionReference.get().addOnSuccessListener {snapshot ->
-            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
-            mutableLiveData.postValue(productModel)
-        }.addOnFailureListener {
-            mutableLiveData.postValue(emptyList())
-        }
-        return mutableLiveData
-    }
-
-    fun getAllBagsProducts(): MutableLiveData<List<ProductModel>>{
-        val mutableLiveData = MutableLiveData<List<ProductModel>>()
-        bagsCollectionReference.get().addOnSuccessListener {snapshot ->
-            val productModel = snapshot.mapNotNull { it.toObject(ProductModel::class.java) }
-            mutableLiveData.postValue(productModel)
-        }.addOnFailureListener {
-            mutableLiveData.postValue(emptyList())
-        }
-        return mutableLiveData
-    }
-
-    fun addProducts(){
-
     }
 
     fun addProductsToCart(cartProductModel: CartProductModel, context: Context){

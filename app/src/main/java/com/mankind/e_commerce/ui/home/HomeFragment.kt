@@ -1,15 +1,18 @@
 package com.mankind.e_commerce.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -56,6 +59,19 @@ class HomeFragment : Fragment() {
                 bottomSheetDialog.dismiss()
             }
         }
+        binding.shirtsLayout.setOnClickListener {
+            if(!binding.shirtsLayout.background.equals(R.drawable.category_card_active)){
+                binding.shirtsLayout.setBackgroundResource(R.drawable.category_card_active)
+                showOtherCategories(binding.progressBar, requireContext(), binding.shirt.text.toString().trim())
+            }
+        }
         return binding.root
+    }
+    fun showOtherCategories(progressBar: ProgressBar, context: Context, categoryName: String){
+        viewModel.getAllProducts(progressBar, categoryName).observe(viewLifecycleOwner){
+            itemsAdapter = ItemsAdapter(it, context)
+            binding.recyclerView.adapter = itemsAdapter
+            itemsAdapter.notifyDataSetChanged()
+        }
     }
 }

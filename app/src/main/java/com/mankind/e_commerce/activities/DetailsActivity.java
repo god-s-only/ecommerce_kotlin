@@ -54,6 +54,15 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        QuantityText quantityText = new QuantityText();
+
+        quantityText.getQuantity().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                binding.productQuantity.setText(""+integer);
+            }
+        });
+
         binding.addToCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,17 +73,19 @@ public class DetailsActivity extends AppCompatActivity {
                 String productId = getIntent().getStringExtra("productId");
                 String productCategory = getIntent().getStringExtra("collectionName");
                 String productImageUrl = getIntent().getStringExtra("imageUrl");
-
-                QuantityText quantityText = new QuantityText();
-                quantityText.getQuantity().observe(DetailsActivity.this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(Integer integer) {
-                        String productQuantity = String.valueOf(integer);
-                        CartProductModel cartProductModel = new CartProductModel(productName, productBio, productPrice, ratings, productId, productCategory, productImageUrl, productQuantity, getIntent().getStringExtra("merchantId"));
-                        viewModel.addProductsToCart(cartProductModel, DetailsActivity.this);
-                    }
-                });
+                CartProductModel cartProductModel = new CartProductModel(productName, productBio, productPrice, ratings, productCategory, productId, productImageUrl, binding.productQuantity.getText().toString().trim(), getIntent().getStringExtra("merchantId"));
+                viewModel.addProductsToCart(cartProductModel, DetailsActivity.this);
             }
+        });
+        binding.increaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantityText.increaseQuantity();
+            }
+        });
+
+        binding.decreaseButton.setOnClickListener( v -> {
+            quantityText.decreaseQuantity();
         });
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override

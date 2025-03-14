@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:id="@+id/main"
     android:layout_height="match_parent"
     android:background="#F8F8F2">
 
-    <!-- Top Image Section -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -281,7 +281,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="1"
+                android:text="0"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold" />

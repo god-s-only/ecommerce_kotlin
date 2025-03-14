@@ -133,6 +133,7 @@ class Repository {
     fun addProducts(productModel: ProductModel, categoryName: String, documentId: String, context: Context){
         FirebaseFirestore.getInstance().collection(categoryName).document(documentId).set(productModel).addOnSuccessListener {
             Toast.makeText(context, "Product added successfully", Toast.LENGTH_LONG).show()
+            context.startActivity(Intent(context, MainActivity::class.java));
         }.addOnFailureListener {
             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
         }

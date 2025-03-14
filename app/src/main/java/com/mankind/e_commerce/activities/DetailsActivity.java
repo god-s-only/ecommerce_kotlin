@@ -38,6 +38,8 @@ public class DetailsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_details);
         viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
+        getSupportActionBar().hide();
+
         viewModel.getSelectedProduct(getIntent().getStringExtra("productId"), getIntent().getStringExtra("collectionName"), DetailsActivity.this).observe(this, new Observer<ProductModel>() {
             @Override
             public void onChanged(ProductModel productModel) {

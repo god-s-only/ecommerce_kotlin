@@ -43,6 +43,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         Glide.with(context)
                 .load(productModelArrayList.get(position).getProductImageUrl())
                 .centerCrop()
+                .placeholder(R.drawable.baseline_shopping_cart_24)
                 .into(holder.itemListLayoutBinding.itemImage);
         holder.itemListLayoutBinding.itemName.setText(productModelArrayList.get(position).getProductName());
         holder.itemListLayoutBinding.itemPrice.setText(productModelArrayList.get(position).getProductPrice());

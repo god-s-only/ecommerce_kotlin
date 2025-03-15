@@ -75,6 +75,13 @@ public class NewProductActivity extends AppCompatActivity {
             }
         });
 
+        binding.toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getOnBackPressedDispatcher().onBackPressed();
+            }
+        });
+
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,38 +91,49 @@ public class NewProductActivity extends AppCompatActivity {
                 String productPrice = binding.productPrice.getText().toString().trim();
                 String ratings = binding.ratings.getText().toString().trim();
                 String productBio = binding.productBio.getText().toString().trim();
-
-                StorageReference filePath = storageReference.getReference("Product Images")
-                        .child("image"+ Timestamp.now().getNanoseconds());
-                filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                if (!productName.isEmpty() && !productCategory.isEmpty() && !productPrice.isEmpty() && !ratings.isEmpty() && !productBio.isEmpty()) {
+                    if(imageUri != null){
+                        StorageReference filePath = storageReference.getReference("Product Images")
+                                .child("image" + Timestamp.now().getNanoseconds());
+                        filePath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(Uri uri) {
-                                binding.loadingContainer.setVisibility(View.GONE);
-                                String imageUrl = uri.toString();
-                                DocumentReference documentReference = FirebaseFirestore.getInstance().collection(productCategory).document();
-                                ProductModel productModel = new ProductModel(productName, mAuth.getCurrentUser().getUid(), productBio, productPrice,  ratings, documentReference.getId(), productCategory, imageUrl);
-                                viewModel.addProducts(productModel, productCategory, documentReference.getId(), NewProductActivity.this);
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        binding.loadingContainer.setVisibility(View.GONE);
+                                        String imageUrl = uri.toString();
+                                        DocumentReference documentReference = FirebaseFirestore.getInstance().collection(productCategory).document();
+                                        ProductModel productModel = new ProductModel(productName, mAuth.getCurrentUser().getUid(), productBio, "$" + productPrice, ratings, documentReference.getId(), productCategory, imageUrl);
+                                        viewModel.addProducts(productModel, productCategory, documentReference.getId(), NewProductActivity.this);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        binding.loadingContainer.setVisibility(View.GONE);
+                                        Toast.makeText(NewProductActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 binding.loadingContainer.setVisibility(View.GONE);
-                                Toast.makeText(NewProductActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NewProductActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
+                    }else{
+                        Toast.makeText(NewProductActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        binding.loadingContainer.setVisibility(View.GONE);
-                        Toast.makeText(NewProductActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+                }else{
+                    Toast.makeText(NewProductActivity.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+
+
         binding.cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

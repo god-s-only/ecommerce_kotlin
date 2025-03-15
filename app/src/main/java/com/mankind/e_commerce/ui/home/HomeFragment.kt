@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +46,11 @@ class HomeFragment : Fragment() {
             binding.recyclerView.adapter = itemsAdapter
             itemsAdapter.notifyDataSetChanged()
         }
+
+        binding.newButton.setOnClickListener{
+            Toast.makeText(requireContext(), "That's all the categories we have for now", Toast.LENGTH_LONG).show()
+        }
+
         binding.newButton.setOnClickListener {
             bottomSheetDialog = BottomSheetDialog(requireContext())
             val view = LayoutInflater.from(requireContext()).inflate(R.layout.bottom_fragment, null)

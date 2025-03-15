@@ -149,6 +149,7 @@
             android:padding="4dp" />
     </LinearLayout>
 
+    <!-- Refined Category Icons with shadow and consistent style -->
     <HorizontalScrollView
         android:id="@+id/category_scroll"
         android:layout_width="match_parent"
@@ -273,6 +274,7 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <!-- Enhanced product grid with better spacing -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -283,6 +285,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_scroll"/>
 
+    <!-- Modern progress indicator -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="36dp"

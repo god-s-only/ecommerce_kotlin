@@ -73,7 +73,7 @@ public class DetailsActivity extends AppCompatActivity {
                 String productId = getIntent().getStringExtra("productId");
                 String productCategory = getIntent().getStringExtra("collectionName");
                 String productImageUrl = getIntent().getStringExtra("imageUrl");
-                CartProductModel cartProductModel = new CartProductModel(productName, productBio, productPrice, ratings, productCategory, productId, productImageUrl, binding.productQuantity.getText().toString().trim(), getIntent().getStringExtra("merchantId"));
+                CartProductModel cartProductModel = new CartProductModel(productName, getIntent().getStringExtra("merchantId"), productBio, productPrice, ratings, productId, productCategory,productImageUrl, binding.productQuantity.getText().toString().trim());
                 viewModel.addProductsToCart(cartProductModel, DetailsActivity.this);
             }
         });

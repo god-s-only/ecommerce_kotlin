@@ -1,25 +1,23 @@
-package com.mankind.e_commerce.ui.search
+package com.mankind.e_commerce.ui.cart
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.mankind.e_commerce.R
-import com.mankind.e_commerce.databinding.FragmentSearchBinding
+import com.mankind.e_commerce.databinding.FragmentCartBinding
 
-class SearchFragment : Fragment(){
-    lateinit var binding:FragmentSearchBinding
+class CartFragment : Fragment(){
+    lateinit var binding:FragmentCartBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_search,
+            R.layout.fragment_cart,
             container,
             false
             )

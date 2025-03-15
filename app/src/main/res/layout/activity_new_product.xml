@@ -136,7 +136,6 @@
                         app:prefixText="$">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:drawableStart="@drawable/baseline_shopping_cart_24"
                             android:drawablePadding="5dp"
                             android:id="@+id/productPrice"
                             android:layout_width="match_parent"

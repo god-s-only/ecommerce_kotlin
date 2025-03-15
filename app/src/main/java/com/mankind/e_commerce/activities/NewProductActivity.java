@@ -123,10 +123,12 @@ public class NewProductActivity extends AppCompatActivity {
                             }
                         });
                     }else{
+                        binding.loadingContainer.setVisibility(View.GONE);
                         Toast.makeText(NewProductActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
                     }
 
                 }else{
+                    binding.loadingContainer.setVisibility(View.GONE);
                     Toast.makeText(NewProductActivity.this, "All fields must be filled", Toast.LENGTH_SHORT).show();
                 }
             }

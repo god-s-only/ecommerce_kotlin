@@ -163,7 +163,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/etPromoCode"
+                        android:id="@+id/promo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -195,7 +195,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCartItems"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -207,7 +207,6 @@
                 app:layout_constraintTop_toBottomOf="@id/promoCodeCard"
                 tools:itemCount="2" />
 
-            <!-- Payment Summary -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/paymentSummaryCard"
                 android:layout_width="match_parent"
@@ -219,7 +218,7 @@
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvCartItems">
+                app:layout_constraintTop_toBottomOf="@id/recyclerView">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -238,28 +237,27 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvTotalItemsLabel"
+                        android:id="@+id/totalItems"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Total Items (3)"
+                        android:text="Total Items (0)"
                         android:textColor="#757575"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvPaymentSummary" />
 
                     <TextView
-                        android:id="@+id/tvTotalItemsValue"
+                        android:id="@+id/total_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$0"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@id/tvTotalItemsLabel"
+                        app:layout_constraintBottom_toBottomOf="@id/totalItems"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvTotalItemsLabel" />
+                        app:layout_constraintTop_toTopOf="@id/totalItems" />
 
-                    <!-- Delivery Fee -->
                     <TextView
                         android:id="@+id/tvDeliveryFeeLabel"
                         android:layout_width="wrap_content"
@@ -269,7 +267,7 @@
                         android:textColor="#757575"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvTotalItemsLabel" />
+                        app:layout_constraintTop_toBottomOf="@id/totalItems" />
 
                     <TextView
                         android:id="@+id/tvDeliveryFeeValue"
@@ -327,6 +325,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
                     <TextView
+                        android:id="@+id/total_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="26dp"

@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
             itemsAdapter.notifyDataSetChanged()
         }
 
-        binding.newButton.setOnClickListener{
+        binding.seeAll.setOnClickListener{
             Toast.makeText(requireContext(), "That's all the categories we have for now", Toast.LENGTH_LONG).show()
         }
 

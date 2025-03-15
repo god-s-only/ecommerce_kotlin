@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -13,7 +16,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/iv_food_image"
+            android:id="@+id/productImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
@@ -24,7 +27,7 @@
             android:contentDescription="Food item image" />
 
         <TextView
-            android:id="@+id/tv_food_name"
+            android:id="@+id/productName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -32,12 +35,12 @@
             android:textStyle="bold"
             android:text="Product Name"
             android:textColor="#000000"
-            app:layout_constraintStart_toEndOf="@id/iv_food_image"
+            app:layout_constraintStart_toEndOf="@id/productImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_delete" />
 
         <TextView
-            android:id="@+id/tv_food_price"
+            android:id="@+id/productPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -46,8 +49,8 @@
             android:textSize="16sp"
             android:textColor="#FF8800"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/iv_food_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_food_name" />
+            app:layout_constraintStart_toEndOf="@id/productImage"
+            app:layout_constraintTop_toBottomOf="@id/productName" />
 
         <LinearLayout
             android:id="@+id/quantity_controls"
@@ -55,8 +58,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@id/tv_food_price"
-            app:layout_constraintTop_toBottomOf="@id/tv_food_price"
+            app:layout_constraintStart_toStartOf="@id/productPrice"
+            app:layout_constraintTop_toBottomOf="@id/productPrice"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <Button
@@ -72,7 +75,7 @@
                 android:padding="0dp" />
 
             <TextView
-                android:id="@+id/tv_quantity"
+                android:id="@+id/productQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -106,3 +109,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
+</layout>

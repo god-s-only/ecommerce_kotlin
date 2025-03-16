@@ -111,8 +111,9 @@ class Repository {
             ).show()
         }
     }
-    fun signOut(){
+    fun signOut(context: Context){
         mAuth.signOut()
+        context.startActivity(Intent(context, SignInActivity::class.java))
     }
 
     fun getAllProducts(progressBar: ProgressBar, collectionName: String): MutableLiveData<List<ProductModel>>{
@@ -178,5 +179,15 @@ class Repository {
         }
         return mutableLiveData
     }
-
+    fun getUserInformation(userId: String?): MutableLiveData<UserData>{
+        val mutableLiveData = MutableLiveData<UserData>()
+        if(userId != null){
+            FirebaseFirestore.getInstance().collection("Users").document(userId).get().addOnSuccessListener {
+                mutableLiveData.postValue(
+                    it.toObject(UserData::class.java)
+                )
+            }
+        }
+        return mutableLiveData
+    }
 }

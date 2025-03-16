@@ -3,6 +3,7 @@ package com.mankind.e_commerce.activities;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -88,7 +89,11 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         binding.decreaseButton.setOnClickListener( v -> {
-            quantityText.decreaseQuantity();
+            if(binding.productQuantity.equals("0")){
+                Toast.makeText(getApplicationContext(), "Invalid quantity", Toast.LENGTH_LONG).show();
+            }else{
+                quantityText.decreaseQuantity();
+            }
         });
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override

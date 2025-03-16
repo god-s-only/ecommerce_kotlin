@@ -7,9 +7,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.mankind.e_commerce.MainActivity
 import com.mankind.e_commerce.R
 
 class LandingActivity : AppCompatActivity() {
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var documentReference: DocumentReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,9 +27,22 @@ class LandingActivity : AppCompatActivity() {
         }
 
         Handler().postDelayed({
-            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            mAuth = FirebaseAuth.getInstance()
+            val userId = mAuth.currentUser?.uid
+            if(userId != null){
+                documentReference = FirebaseFirestore.getInstance().collection("Users").document(userId)
+                if(documentReference != null){
+                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                }else{
+                    startActivity(Intent(applicationContext, SignInActivity::class.java))
+                }
+            }else{
+                startActivity(Intent(applicationContext, SignInActivity::class.java))
+            }
             finish()
         }, 4000)
         supportActionBar?.hide()
+
+
     }
 }

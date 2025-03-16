@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.mankind.e_commerce.model.CartProductModel
 import com.mankind.e_commerce.model.ProductModel
 import com.mankind.e_commerce.model.Repository
+import com.mankind.e_commerce.model.UserData
 
 class ViewModel : ViewModel() {
     private var repository:Repository
@@ -32,8 +33,8 @@ class ViewModel : ViewModel() {
         repository.signInUser(email, password, context)
     }
 
-    fun signOut(){
-        repository.signOut()
+    fun signOut(context: Context){
+        repository.signOut(context)
     }
     fun getAllProducts(progressBar: ProgressBar, collectionName: String): LiveData<List<ProductModel>>{
         return repository.getAllProducts(progressBar, collectionName)
@@ -50,4 +51,6 @@ class ViewModel : ViewModel() {
     fun addProducts(productModel: ProductModel, categoryName: String, documentId: String, context: Context){
         repository.addProducts(productModel, categoryName, documentId, context)
     }
+    fun getUserInformation(userId: String?): LiveData<UserData>
+        = repository.getUserInformation(userId)
 }

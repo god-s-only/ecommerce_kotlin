@@ -23,7 +23,7 @@ class CartFragment : Fragment(){
     private lateinit var binding:FragmentCartBinding
     private lateinit var viewModel: ViewModel
     private lateinit var cartAdapter: CartAdapter
-    private lateinit var cartListItem: List<CartProductModel>
+    private lateinit var cartListItem: ArrayList<CartProductModel>
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,13 +36,15 @@ class CartFragment : Fragment(){
             )
         var totalPrice = 0.0
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
+        cartListItem = ArrayList()
+        cartAdapter = CartAdapter(cartListItem, requireContext())
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = cartAdapter
         viewModel.getAllCartProducts().observe(viewLifecycleOwner){cartList ->
-            cartListItem = cartList
-            cartAdapter = CartAdapter(cartListItem, requireContext())
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.recyclerView.adapter = cartAdapter
+            cartListItem.clear()
+            cartListItem.addAll(cartList)
             cartAdapter.notifyDataSetChanged()
-            totalPrice = cartList.sumOf { it.productPrice.toDouble() }
+            val totalPrice = cartListItem.sumOf { it.productPrice.toString().drop(1).toDoubleOrNull() ?:0.0 }
             binding.totalPrice.text = totalPrice.toString()
             binding.totalItems.text = "Total Items (${cartList.size})"
             binding.totalValue.text = totalPrice.toString()
@@ -65,9 +67,6 @@ class CartFragment : Fragment(){
                 }
             }
         ).attachToRecyclerView(binding.recyclerView)
-
-
         return binding.root
     }
-
 }

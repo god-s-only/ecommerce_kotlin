@@ -39,10 +39,8 @@ class CartAdapter(var cartList: List<CartProductModel>, var context: Context)
             val userId = FirebaseAuth.getInstance().currentUser?.uid
             if(userId != null){
                 val documentReference = FirebaseFirestore.getInstance().collection("Cart Products").document(userId).collection("Products").document(cartList[holder.adapterPosition].productId)
-                documentReference.get().addOnSuccessListener {
-                    val cartProductModel = it.toObject(CartProductModel::class.java)
-                    documentReference.update("ratings", cartProductModel?.productQuantity+1)
-                }
+                val updatedQuantity = cartList[position].productQuantity.toInt() + 1
+                documentReference.update("productQuantity", updatedQuantity.toString())
             }
         }
     }

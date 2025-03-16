@@ -57,18 +57,6 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
-            }
-        })
-
         QuantityText quantityText = new QuantityText();
 
         quantityText.getQuantity().observe(this, new Observer<Integer>() {

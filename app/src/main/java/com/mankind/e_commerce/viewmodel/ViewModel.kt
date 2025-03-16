@@ -3,6 +3,7 @@ package com.mankind.e_commerce.viewmodel
 import android.content.Context
 import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mankind.e_commerce.model.CartProductModel
 import com.mankind.e_commerce.model.ProductModel
@@ -40,7 +41,7 @@ class ViewModel : ViewModel() {
     fun addProductsToCart(cartProductModel: CartProductModel, context: Context){
         repository.addProductsToCart(cartProductModel, context)
     }
-    fun getAllCartProducts(): LiveData<List<CartProductModel>>{
+    fun getAllCartProducts(): MutableLiveData<List<CartProductModel>>{
         return repository.getAllCartProducts()
     }
     fun getSelectedProduct(productId: String, collectionName: String, context: Context): LiveData<ProductModel>{

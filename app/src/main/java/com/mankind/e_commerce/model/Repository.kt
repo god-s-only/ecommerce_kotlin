@@ -157,11 +157,15 @@ class Repository {
         val mutableLiveData = MutableLiveData<List<CartProductModel>>()
         val userId = mAuth.currentUser?.uid
         if(userId != null){
-            FirebaseFirestore.getInstance().collection("Cart Products").document(userId).collection("Products").get().addOnSuccessListener { snapshot ->
+            FirebaseFirestore.getInstance().collection("Cart Products").document(userId).collection("Products").addSnapshotListener {
+                value, error ->
+                if(error != null){
+                    return@addSnapshotListener
+                }
                 mutableLiveData.postValue(
-                    snapshot.mapNotNull { it.toObject(CartProductModel::class.java) }
+                    value?.documents?.mapNotNull { it.toObject(CartProductModel::class.java) }
                 )
-            }.addOnFailureListener { mutableLiveData.postValue(emptyList()) }
+            }
         }
         return mutableLiveData
     }

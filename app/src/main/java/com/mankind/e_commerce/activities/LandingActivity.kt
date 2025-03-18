@@ -25,7 +25,6 @@ class LandingActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         Handler().postDelayed({
             mAuth = FirebaseAuth.getInstance()
             val userId = mAuth.currentUser?.uid
@@ -42,7 +41,5 @@ class LandingActivity : AppCompatActivity() {
             finish()
         }, 4000)
         supportActionBar?.hide()
-
-
     }
 }

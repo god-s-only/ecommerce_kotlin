@@ -7,6 +7,11 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.getValue
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -189,5 +194,28 @@ class Repository {
             }
         }
         return mutableLiveData
+    }
+    fun getChatUsers(userId: String): MutableLiveData<ArrayList<ChatNamesModel>>{
+        val mutableLiveData = MutableLiveData<ArrayList<ChatNamesModel>>()
+        val chatNamesModelList = ArrayList<ChatNamesModel>()
+        FirebaseDatabase.getInstance().reference.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(chatSnapShot in snapshot.children){
+                    val chatId = chatSnapShot.key.toString()
+                    if(chatId.contains(userId)){
+                        val chatNamesModel = chatSnapShot.getValue(ChatNamesModel::class.java)
+                        chatNamesModel?.let { chatNamesModelList.add(chatNamesModel) }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+        return mutableLiveData
+    }
+    fun addChatUsers(userId: String, chatPartner: String){
+        FirebaseDatabase.getInstance().reference.child(userId+"_"+chatPartner).setValue(userId+"_"+chatPartner)
     }
 }

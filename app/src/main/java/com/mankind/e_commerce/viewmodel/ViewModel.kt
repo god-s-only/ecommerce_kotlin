@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mankind.e_commerce.model.CartProductModel
+import com.mankind.e_commerce.model.ChatNamesModel
 import com.mankind.e_commerce.model.ProductModel
 import com.mankind.e_commerce.model.Repository
 import com.mankind.e_commerce.model.UserData
@@ -53,4 +54,7 @@ class ViewModel : ViewModel() {
     }
     fun getUserInformation(userId: String?): LiveData<UserData>
         = repository.getUserInformation(userId)
+    fun getChatUsers(userId: String): LiveData<List<ChatNamesModel>>{
+        return getChatUsers(userId)
+    }
 }

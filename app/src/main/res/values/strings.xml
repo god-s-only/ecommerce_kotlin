@@ -22,4 +22,15 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="chats">Chats</string>
+    <string name="search_contacts">Search contacts</string>
+    <string name="all">All</string>
+    <string name="unread">Unread</string>
+    <string name="favorites">Favorites</string>
+    <string name="new_chat">New Chat</string>
+    <string name="no_chats_found">No chats found</string>
+    <string name="no_chats_yet">No conversations yet</string>
+    <string name="start_new_conversation">Start a new conversation with your contacts</string>
+    <string name="start_chatting">Start Chatting</string>
 </resources>

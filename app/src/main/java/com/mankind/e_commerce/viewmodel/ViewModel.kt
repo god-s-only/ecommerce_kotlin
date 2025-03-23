@@ -12,11 +12,7 @@ import com.mankind.e_commerce.model.Repository
 import com.mankind.e_commerce.model.UserData
 
 class ViewModel : ViewModel() {
-    private var repository:Repository
-
-    init {
-        repository = Repository()
-    }
+    private var repository:Repository = Repository()
 
     fun createNewUser(
         email:String,
@@ -56,5 +52,8 @@ class ViewModel : ViewModel() {
         = repository.getUserInformation(userId)
     fun getChatUsers(userId: String): LiveData<List<ChatNamesModel>>{
         return getChatUsers(userId)
+    }
+    fun addChatUsers(userId: String, chattingPartner: String){
+        repository.addChatUsers(userId, chattingPartner)
     }
 }

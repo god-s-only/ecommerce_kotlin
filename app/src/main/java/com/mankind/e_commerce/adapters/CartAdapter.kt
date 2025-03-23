@@ -43,6 +43,14 @@ class CartAdapter(var cartList: List<CartProductModel>, var context: Context)
                 documentReference.update("productQuantity", updatedQuantity.toString())
             }
         }
+        holder.binding.btnDecrease.setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if(userId != null){
+                val documentReference = FirebaseFirestore.getInstance().collection("Cart Products").document(userId).collection("Products").document(cartList[holder.adapterPosition].productId)
+                val updatedQuantity = cartList[position].productQuantity.toInt() - 1
+                documentReference.update("productQuantity", updatedQuantity.toString())
+            }
+        }
     }
 
     override fun getItemCount(): Int = cartList.size
